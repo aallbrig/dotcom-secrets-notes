@@ -1,8 +1,12 @@
 from diagrams import Cluster, Diagram
 from diagrams.aws.compute import Lambda
 
-with Diagram("The Secret Formula", show=False):
-    with Cluster("Who?"):
+with Diagram("The Secret Formula", show=False, direction="TB"):
+    who = Lambda("Who?")
+    where = Lambda("Where?")
+    bait = Lambda("Bait?")
+    result = Lambda("Result?")
+    with Cluster("Who?", direction="TB"):
         whoQuestions = [
             Lambda("Who is your dream client?"),
             Lambda("Who do I actually want to work with?"),
@@ -31,4 +35,8 @@ with Diagram("The Secret Formula", show=False):
             Lambda("What result do you want to give your dream clients?")
         ]
 
-    Lambda("Who?") >> whoQuestions >> Lambda("Where?") >> whereQuestions >> Lambda("Bait?") >> baitQuestions >> Lambda("Result?") >> resultQuestions
+    who >> whoQuestions
+    where >> whereQuestions
+    bait >> baitQuestions
+    result >> resultQuestions
+    who >> where >> bait >> result
